@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 const path = require('path')
 const fs = require('fs')
+const db = require('./db')
 
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
 
@@ -37,6 +38,9 @@ let menuList = [
 router.get('/api/getmenu',(req,res) => {
     // 这里的req.body能够使用就在index.js中引入了const bodyParser = require('body-parser')
     console.log('get it');
+    db.getDb(function(){
+      console.log('get db')
+    })
     res.json({
       errorCode: 0,
       data: menuList
