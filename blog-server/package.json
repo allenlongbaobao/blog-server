@@ -1,0 +1,7 @@
+{
+  "description": "a blog server",
+  "license": "mit",
+  "dependencies": {
+    "express": "^4.16.2"
+  }
+}
