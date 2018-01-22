@@ -59,8 +59,10 @@ router.get('/api/getmenu',(req,res) => {
     })
 });
 
+
+// 获取文章集列表
 router.get('/api/getNoteList', (req, res) => {
-  noteList.findById(req.body['id']).then(data=>{
+  moduleArticleList.findById(req.body['id']).then(data=>{
     console.log(data)
     res.jsonp({
       data: [data]
@@ -73,8 +75,9 @@ router.get('/api/getNoteList', (req, res) => {
   })
 });
 
-router.get('/api/getNote/:id', (req, res) => {
-  noteList.findById(req.body['id']).then(data=>{
+// 根据id获取文章
+router.get('/api/getNote', (req, res) => {
+  moduleArticle.findById(req.body['id']).then(data=>{
     console.log(data)
     res.jsonp({
       data: [data]
@@ -87,6 +90,7 @@ router.get('/api/getNote/:id', (req, res) => {
   })
 });
 
+// 新增文章集
 router.post('/api/addNoteList', (req, res) => {
   const noteList = new moduleNoteList(req.body)
   noteList.save(()=>{
@@ -101,6 +105,7 @@ router.post('/api/addNoteList', (req, res) => {
   })
 });
 
+// 新增文章
 router.post('/api/addArticle', (req, res) => {
   const article = new moduleArticle(req.body);
   article.save(()=>{
@@ -116,10 +121,36 @@ router.post('/api/addArticle', (req, res) => {
   })
 });
 
-
+// 删除文章
 router.delete('/api/deleteArticle', (req, res) => {
+  let id = req.body['id']
+  moduleArticl.findByIdAndRemove(id).then((response)=>{
+    console.log(response)
+    res.jsonp({
+      data: [response]
+    })
+  }, (err)=>{
+    res.status(400).send({
+      message: err
+    })
+  })
+});
 
-
+// 修改文章
+router.post('/api/modifyArticle', (req, res) => {
+  let id = req.body['id']
+  let update = req.body['update']
+  moduleArticle.findByIdAndUpdate(id, update).then((response)=>{
+    console.log(response)
+    res.jsonp({
+      data: [response]
+    })
+  },(err)=>{
+    console.log(err)
+    res.status(400).send({
+      message: err
+    })
+  });
 });
 
 // 获取已有账号接口
