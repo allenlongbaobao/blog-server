@@ -59,6 +59,34 @@ router.get('/api/getmenu',(req,res) => {
     })
 });
 
+router.get('/api/getNoteList', (req, res) => {
+  noteList.findById(req.body['id']).then(data=>{
+    console.log(data)
+    res.jsonp({
+      data: [data]
+    })
+  }).catch(err=>{
+    console.log(err)
+    res.status(400).send({
+      message: 'get note list fail'
+    })
+  })
+});
+
+router.get('/api/getNote/:id', (req, res) => {
+  noteList.findById(req.body['id']).then(data=>{
+    console.log(data)
+    res.jsonp({
+      data: [data]
+    })
+  }).catch(err=>{
+    console.log(err)
+    res.status(400).send({
+      message: 'get note fail'
+    })
+  })
+});
+
 router.post('/api/addNoteList', (req, res) => {
   const noteList = new moduleNoteList(req.body)
   noteList.save(()=>{
@@ -71,7 +99,6 @@ router.post('/api/addNoteList', (req, res) => {
       message: "add noetlist fail"
     })
   })
-
 });
 
 router.post('/api/addArticle', (req, res) => {
@@ -89,7 +116,9 @@ router.post('/api/addArticle', (req, res) => {
   })
 });
 
+
 router.delete('/api/deleteArticle', (req, res) => {
+
 
 });
 
