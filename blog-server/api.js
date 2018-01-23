@@ -61,22 +61,22 @@ router.get('/api/getmenu',(req,res) => {
 
 
 // 获取文章集列表
-router.get('/api/getNoteList', (req, res) => {
-  moduleArticleList.findById(req.body['id']).then(data=>{
-    console.log(data)
+router.get('/api/getArticleList', (req, res) => {
+  moduleArticleList.find().then(data=>{
+    console.log('articleList:' + data)
     res.jsonp({
-      data: [data]
+      data: data
     })
   }).catch(err=>{
     console.log(err)
     res.status(400).send({
-      message: 'get note list fail'
+      message: 'get article list fail'
     })
   })
 });
 
 // 根据id获取文章
-router.get('/api/getNote', (req, res) => {
+router.get('/api/getArticle', (req, res) => {
   moduleArticle.findById(req.body['id']).then(data=>{
     console.log(data)
     res.jsonp({
@@ -85,22 +85,23 @@ router.get('/api/getNote', (req, res) => {
   }).catch(err=>{
     console.log(err)
     res.status(400).send({
-      message: 'get note fail'
+      message: 'get article fail'
     })
   })
 });
 
 // 新增文章集
-router.post('/api/addNoteList', (req, res) => {
-  const noteList = new moduleNoteList(req.body)
-  noteList.save(()=>{
+router.post('/api/addArticleList', (req, res) => {
+  const articleList = new moduleArticleList(req.body)
+  articleList.save(()=>{
+    console.log('增加成功：' + articleList)
     res.jsonp({
-      data: [noteList]
+      data: articleList
     })
   }, (err)=>{
     console.log(err)
     res.status(400).send({
-      message: "add noetlist fail"
+      message: "add articlelist fail"
     })
   })
 });

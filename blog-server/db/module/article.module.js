@@ -2,13 +2,13 @@ const Mongoose = require('mongoose');
 const Schema = Mongoose.Schema;
 
 let article = {
-  noteList: {
+  articleList: {
     Lid: Schema.Types.ObjectId,
     name: String
   },
-  noteName: String,
-  noteLink: String,
-  noteContent: String,
+  articleName: String,
+  articleLink: String,
+  articleContent: String,
   publish: Boolean
 }
 
