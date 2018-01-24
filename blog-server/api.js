@@ -75,6 +75,21 @@ router.get('/api/getArticleList', (req, res) => {
   })
 });
 
+// 获取所有文章
+router.get('/api/getAllArticle', (req, res) => {
+  moduleArticle.find().then(data => {
+    console.log('all article: ' + data)
+    res.jsonp({
+      data: data
+    })
+  }).catch(err => {
+    console.log(err)
+    res.status(400).send({
+      message: 'get all articles fail'
+    })
+  })
+})
+
 // 根据id获取文章
 router.get('/api/getArticle', (req, res) => {
   moduleArticle.findById(req.body['id']).then(data=>{
@@ -108,6 +123,7 @@ router.post('/api/addArticleList', (req, res) => {
 
 // 新增文章
 router.post('/api/addArticle', (req, res) => {
+  console.log(req.body);
   const article = new moduleArticle(req.body);
   article.save(()=>{
     console.log(article)
