@@ -139,9 +139,10 @@ router.post('/api/addArticle', (req, res) => {
 });
 
 // 删除文章
-router.delete('/api/deleteArticle', (req, res) => {
-  let id = req.body['id']
-  moduleArticl.findByIdAndRemove(id).then((response)=>{
+router.post('/api/removeArticle', (req, res) => {
+  let id = req.body
+  console.log(id)
+  moduleArticle.findByIdAndRemove(id).then((response)=>{
     console.log(response)
     res.jsonp({
       data: [response]
