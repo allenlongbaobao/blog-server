@@ -124,9 +124,10 @@ router.post('/api/addArticleList', (req, res) => {
 // 新增文章
 router.post('/api/addArticle', (req, res) => {
   console.log(req.body);
+  let id = req.body.articleList.Lid
   const article = new moduleArticle(req.body);
   article.save(()=>{
-    console.log(article)
+    numPlusInArticleList(id)
     res.jsonp({
       data: [article]
     })
@@ -138,12 +139,17 @@ router.post('/api/addArticle', (req, res) => {
   })
 });
 
+let numPlusInArticleList = function (id) {
+  console.log('id:' + id)
+  moduleArticleList.where({_id: id}).update({$inc:{articleNum: 1}})
+}
+
+
 // 删除文章
 router.post('/api/removeArticle', (req, res) => {
   let id = req.body
   console.log(id)
   moduleArticle.findByIdAndRemove(id).then((response)=>{
-    console.log(response)
     res.jsonp({
       data: [response]
     })
@@ -151,6 +157,17 @@ router.post('/api/removeArticle', (req, res) => {
     res.status(400).send({
       message: err
     })
+  })
+});
+
+//删除文章集
+router.post('/api/removeArticleList', (req, res) => {
+  let id = req.body
+  moduleArticleList.findByIdAndRemove(id).then((response)=>{
+    res.jsonp({
+      data: [response]
+    })
+  }, (err)=>{
   })
 });
 
