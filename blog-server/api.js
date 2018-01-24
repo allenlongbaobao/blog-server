@@ -10,6 +10,7 @@ require('./db/module/article.module.js')
 require('./db/module/articleList.module.js')
 const moduleArticle =  Mongoose.model('article')
 const moduleArticleList = Mongoose.model('articleList')
+Mongoose.Promise = promise
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
 
 
@@ -126,38 +127,55 @@ router.post('/api/addArticle', (req, res) => {
   console.log(req.body);
   let id = req.body.articleList.Lid
   const article = new moduleArticle(req.body);
-  article.save(()=>{
-    numPlusInArticleList(id)
+  article.save().then((response)=>{
     res.jsonp({
       data: [article]
     })
+    return id
+  }).then(numPlusInArticleList)
+  /*
+  article.save(()=>{
+    //numPlusInArticleList(id)
+    res.jsonp({
+      data: [article]
+    })
+    return id
   }, (err)=>{
     console.log(err)
     res.status(400).send({
       message: "add article fail"
     })
-  })
+  }).then(numPlusInArticleList)
+  */
 });
 
 let numPlusInArticleList = function (id) {
-  console.log('id:' + id)
-  moduleArticleList.where({_id: id}).update({$inc:{articleNum: 1}})
+  moduleArticleList.update({_id: id}, {$inc:{articleNum: 1}}, response=>{
+
+  })
 }
 
+let numSubInArticleList = function (id) {
+  console.log('删除文章后－－1' + id)
+  moduleArticleList.update({_id: id}, {$inc:{articleNum: -1}}, response=>{
+    console.log('response:' + response)
+  })
+}
 
 // 删除文章
 router.post('/api/removeArticle', (req, res) => {
   let id = req.body
-  console.log(id)
   moduleArticle.findByIdAndRemove(id).then((response)=>{
+    //numSubInArticleList(response.articleList.Lid)
     res.jsonp({
       data: [response]
     })
+    return response.articleList.Lid
   }, (err)=>{
     res.status(400).send({
       message: err
     })
-  })
+  }).then(numSubInArticleList)
 });
 
 //删除文章集
