@@ -105,6 +105,17 @@ router.post('/api/getArticleById', (req, res) => {
   })
 });
 
+router.post('/api/getArticleInOneListById', (req, res) => {
+  console.log(req.body.id)
+  moduleArticle.find({'articleList.Lid':req.body.id}).then(response => {
+    console.log('article IN list:', response)
+    res.jsonp({
+      data: response
+    })
+  })
+
+});
+
 // 新增文章集
 router.post('/api/addArticleList', (req, res) => {
   const articleList = new moduleArticleList(req.body)
