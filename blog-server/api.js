@@ -64,7 +64,6 @@ router.get('/api/getmenu',(req,res) => {
 // 获取文章集列表
 router.get('/api/getArticleList', (req, res) => {
   moduleArticleList.find().then(data=>{
-    console.log('articleList:' + data)
     res.jsonp({
       data: data
     })
@@ -79,7 +78,6 @@ router.get('/api/getArticleList', (req, res) => {
 // 获取所有文章
 router.get('/api/getAllArticle', (req, res) => {
   moduleArticle.find().then(data => {
-    console.log('all article: ' + data)
     res.jsonp({
       data: data
     })
@@ -110,7 +108,7 @@ router.get('/api/getArticle', (req, res) => {
 router.post('/api/addArticleList', (req, res) => {
   const articleList = new moduleArticleList(req.body)
   articleList.save(()=>{
-    console.log('增加成功：' + articleList)
+    console.log('增加文章集成功：' + articleList)
     res.jsonp({
       data: articleList
     })
@@ -124,33 +122,39 @@ router.post('/api/addArticleList', (req, res) => {
 
 // 新增文章
 router.post('/api/addArticle', (req, res) => {
-  console.log(req.body);
   let id = req.body.articleList.Lid
-  const article = new moduleArticle(req.body);
+  console.log(req.body)
+  if(!req.body._id){
+    addArticle(req.body, res)
+  }else{
+    modifyArticle(req.body, res)
+  }
+})
+
+let addArticle = function (body, res) {
+  body._id = Mongoose.Types.ObjectId()
+  const article = new moduleArticle(body);
   article.save().then((response)=>{
+    console.log('新增文章成功', response)
     res.jsonp({
       data: [article]
     })
-    return id
+    return body.articleList.Lid
   }).then(numPlusInArticleList)
-  /*
-  article.save(()=>{
-    //numPlusInArticleList(id)
+}
+
+let modifyArticle = function (body, res) {
+  moduleArticle.findByIdAndUpdate(body._id, body, {new: true}).then((response) => {
+    console.log("修改文章成功", response)
     res.jsonp({
-      data: [article]
+      data: [response]
     })
-    return id
-  }, (err)=>{
-    console.log(err)
-    res.status(400).send({
-      message: "add article fail"
-    })
-  }).then(numPlusInArticleList)
-  */
-});
+  })
+}
 
 let numPlusInArticleList = function (id) {
   moduleArticleList.update({_id: id}, {$inc:{articleNum: 1}}, response=>{
+    console.log('增加数量成功' + response)
 
   })
 }
@@ -166,7 +170,7 @@ let numSubInArticleList = function (id) {
 router.post('/api/removeArticle', (req, res) => {
   let id = req.body
   moduleArticle.findByIdAndRemove(id).then((response)=>{
-    //numSubInArticleList(response.articleList.Lid)
+    console.log('删除文章成功', response)
     res.jsonp({
       data: [response]
     })
@@ -182,6 +186,7 @@ router.post('/api/removeArticle', (req, res) => {
 router.post('/api/removeArticleList', (req, res) => {
   let id = req.body
   moduleArticleList.findByIdAndRemove(id).then((response)=>{
+    console.log('删除文章集成功', response)
     res.jsonp({
       data: [response]
     })
