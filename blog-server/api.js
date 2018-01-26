@@ -91,9 +91,7 @@ router.get('/api/getAllArticle', (req, res) => {
 
 // 根据id获取文章
 router.post('/api/getArticleById', (req, res) => {
-  console.log("id:", req)
   moduleArticle.findById(req.body.id).then(data=>{
-    console.log("data:", data)
     res.jsonp({
       data: data
     })
@@ -105,10 +103,8 @@ router.post('/api/getArticleById', (req, res) => {
   })
 });
 
-router.post('/api/getArticleInOneListById', (req, res) => {
-  console.log(req.body.id)
-  moduleArticle.find({'articleList.Lid':req.body.id}).then(response => {
-    console.log('article IN list:', response)
+router.post('/api/getPublishArticleInOneListById', (req, res) => {
+  moduleArticle.find({'articleList.Lid':req.body.id, 'publish': true}).then(response => {
     res.jsonp({
       data: response
     })
