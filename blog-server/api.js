@@ -60,9 +60,9 @@ router.get('/api/getmenu',(req,res) => {
     })
 });
 
-
 // 获取文章集列表
 router.get('/api/getArticleList', (req, res) => {
+
   moduleArticleList.find().then(data=>{
     res.jsonp({
       data: data
@@ -131,7 +131,6 @@ router.post('/api/addArticleList', (req, res) => {
 // 新增文章
 router.post('/api/addArticle', (req, res) => {
   let id = req.body.articleList.Lid
-  console.log(req.body)
   if(!req.body._id){
     addArticle(req.body, res)
   }else{
