@@ -1,17 +1,17 @@
-require('../db/module/article.module.js')
-require('../db/module/articleList.module.js')
+require('../db/model/article.model.js')
+require('../db/model/articleList.model.js')
 const express = require('express')
 const Mongoose = require('mongoose')
 const router = express.Router();
 const promise = require('promise')
-const moduleArticleList = Mongoose.model('articleList')
-const moduleArticle = Mongoose.model('article')
+const modelArticleList = Mongoose.model('articleList')
+const modelArticle = Mongoose.model('article')
 Mongoose.Promise = promise
 
 
 let addArticle = function (body, res) {
   body._id = Mongoose.Types.ObjectId()
-  const article = new moduleArticle(body);
+  const article = new modelArticle(body);
   article.save().then((response)=>{
     console.log('新增文章成功', response)
     res.jsonp({
@@ -22,7 +22,7 @@ let addArticle = function (body, res) {
 }
 
 let modifyArticle = function (body, res) {
-  moduleArticle.findByIdAndUpdate(body._id, body, {new: true}).then((response) => {
+  modelArticle.findByIdAndUpdate(body._id, body, {new: true}).then((response) => {
     console.log("修改文章成功", response)
     res.jsonp({
       data: [response]
@@ -31,7 +31,7 @@ let modifyArticle = function (body, res) {
 }
 
 let numPlusInArticleList = function (id) {
-  moduleArticleList.update({_id: id}, {$inc:{articleNum: 1}}, response=>{
+  modelArticleList.update({_id: id}, {$inc:{articleNum: 1}}, response=>{
     console.log('增加数量成功' + response)
 
   })
@@ -39,7 +39,7 @@ let numPlusInArticleList = function (id) {
 
 let numSubInArticleList = function (id) {
   console.log('删除文章后－－1' + id)
-  moduleArticleList.update({_id: id}, {$inc:{articleNum: -1}}, response=>{
+  modelArticleList.update({_id: id}, {$inc:{articleNum: -1}}, response=>{
     console.log('response:' + response)
   })
 }
@@ -47,7 +47,7 @@ let numSubInArticleList = function (id) {
 
 // 获取所有文章
 let getAllArticle = function (req, res) {
-	moduleArticle.find().then(data => {
+	modelArticle.find().then(data => {
 	    res.jsonp({
 	      data: data
 	    })
@@ -61,7 +61,7 @@ let getAllArticle = function (req, res) {
 
 // 根据id获取文章
 let getArticleById = function (req, res) {
-	moduleArticle.findById(req.body.id).then(data=>{
+	modelArticle.findById(req.body.id).then(data=>{
 		res.jsonp({
 		  data: data
 		})
@@ -74,7 +74,7 @@ let getArticleById = function (req, res) {
 }
 
 let getPublishArticleInOneListById = function (req, res) {
-  moduleArticle.find({'articleList.Lid':req.body.id, 'publish': true}).then(response => {
+  modelArticle.find({'articleList.Lid':req.body.id, 'publish': true}).then(response => {
     res.jsonp({
       data: response
     })
@@ -95,7 +95,7 @@ let addOrModifyArticle = function (req, res) {
 // 删除文章
 let removeArticle = function (req, res) {
   let id = req.body
-  moduleArticle.findByIdAndRemove(id).then((response)=>{
+  modelArticle.findByIdAndRemove(id).then((response)=>{
     console.log('删除文章成功', response)
     res.jsonp({
       data: [response]

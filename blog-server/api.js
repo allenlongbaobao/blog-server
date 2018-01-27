@@ -6,18 +6,11 @@ const router = express.Router();
 const path = require('path')
 const fs = require('fs')
 const promise = require('promise')
-require('./db/module/article.module.js')
-require('./db/module/articleList.module.js')
-require('./db/module/user.module.js')
 
 const articleControler = require('./controler/article.controler.js')
 const articleListControler = require('./controler/articleList.controler.js')
 const userControler = require('./controler/user.controler.js')
 
-const moduleArticle =  Mongoose.model('article')
-const moduleArticleList = Mongoose.model('articleList')
-const moduleUser = Mongoose.model('user')
-Mongoose.Promise = promise
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
 
 // 文章集操作
