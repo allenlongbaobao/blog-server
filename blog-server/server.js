@@ -33,7 +33,8 @@ app.use(expressSession({
 //设置跨域访问
 app.all('*', function(req, res, next) {
   console.log('跨域')
-  res.header("Access-Control-Allow-Origin", "http://localhost:8080")
+  console.log(req.headers.origin)
+  res.header("Access-Control-Allow-Origin", req.headers.origin)
   res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild");
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
   res.header("X-Powered-By",'3.2.1')
