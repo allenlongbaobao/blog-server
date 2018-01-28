@@ -60,7 +60,7 @@ let signIn = function (req, res) {
 
 let signOut =function (req, res) {
 	req.session.user = null
-	res.send(200)
+	res.status(200).send()
 }
 
 module.exports = {
