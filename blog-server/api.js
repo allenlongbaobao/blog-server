@@ -25,4 +25,9 @@ router.post('/api/getPublishArticleInOneListById', articleControler.getPublishAr
 router.post('/api/addOrModifyArticle', articleControler.addOrModifyArticle)
 router.post('/api/removeArticle', articleControler.removeArticle)
 
+// 用户操作
+router.post('/api/signUp', userControler.signUp)
+router.post('/api/signIn', userControler.signIn)
+router.post('/api/signOut', userControler.signOut)
+
 module.exports = router;

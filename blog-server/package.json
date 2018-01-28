@@ -4,10 +4,13 @@
   "description": "a server for my personal blog",
   "main": "server.js",
   "dependencies": {
+    "cookie-parser": "^1.4.3",
     "express": "^4.16.2",
+    "express-session": "^1.15.6",
     "mongodb": "^3.0.1",
     "mongoose": "^5.0.1",
-    "promise": "^8.0.1"
+    "promise": "^8.0.1",
+    "uid-safe": "^2.1.5"
   },
   "devDependencies": {},
   "scripts": {

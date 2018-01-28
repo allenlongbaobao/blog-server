@@ -1,3 +1,4 @@
+require('../db/model/articleList.model.js')
 const express = require('express')
 const Mongoose = require('mongoose')
 const router = express.Router();
@@ -5,7 +6,6 @@ const promise = require('promise')
 const modelArticleList = Mongoose.model('articleList')
 Mongoose.Promise = promise
 
-require('../db/model/articleList.model.js')
 
 // 获取文章集列表
 let getArticleList = function(req, res) {
