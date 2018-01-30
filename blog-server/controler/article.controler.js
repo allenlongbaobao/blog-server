@@ -44,13 +44,23 @@ let numSubInArticleList = function (id) {
   })
 }
 
+//获取发布的文章数量
+let getPublishArticleNum = function (req, res) {
+  modelArticle.count({publish: true}).then(data => {
+    console.log('查询数量:', data)
+    res.jsonp({
+      data: data
+    })
+  })
+}
 
 // 获取所有文章
 let getAllArticle = function (req, res) {
 	modelArticle.find().then(data => {
-	    res.jsonp({
-	      data: data
-	    })
+    console.log('获取文章:', data)
+    res.jsonp({
+      data: data
+    })
   }).catch(err => {
     console.log(err)
     res.status(400).send({
@@ -109,6 +119,7 @@ let removeArticle = function (req, res) {
 }
 
 module.exports = {
+  getPublishArticleNum: getPublishArticleNum,
 	getAllArticle: getAllArticle,
 	getArticleById: getArticleById,
 	getPublishArticleInOneListById: getPublishArticleInOneListById,

@@ -19,6 +19,7 @@ router.post('/api/addArticleList', articleListControler.addArticleList)
 router.post('/api/removeArticleList', articleListControler.removeArticleList)
 
 // 文章操作
+router.get('/api/getPublishArticleNum', articleControler.getPublishArticleNum)
 router.get('/api/getAllArticle', articleControler.getAllArticle)
 router.post('/api/getArticleById', articleControler.getArticleById)
 router.post('/api/getPublishArticleInOneListById', articleControler.getPublishArticleInOneListById)
