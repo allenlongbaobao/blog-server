@@ -11,6 +11,7 @@ const bodyParser = require('body-parser')
 const express = require('express');
 // 引入 express-session
 const expressSession = require('express-session')
+const MongoStore = require('connect-mongo')(expressSession)
 const uidSafe = require('uid-safe')
 const app = express();
 
@@ -18,8 +19,8 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
 app.use(express.static(path.resolve(__dirname, '../dist')))
-app.use(expressSession({name:'blog',secret:'allen',resave: false, saveUninitialized: true,cookie: ('name', 'value', { path: '/', httpOnly: false,secure: false, maxAge: null})}));
-app.set('trust proxy', 1) // trust first proxy
+app.use(expressSession({name:'blog',store: new MongoStore({mongooseConnection: db.openDB()}), secret:'allen',resave: true, saveUninitialized: true,cookie: ('name', 'value', { path: '/', httpOnly: false,secure: false, maxAge: 50000})}));
+//app.set('trust proxy', 1) // trust first proxy
 /*
 app.use(expressSession({
   name: 'blog',
@@ -32,8 +33,6 @@ app.use(expressSession({
 
 //设置跨域访问
 app.all('*', function(req, res, next) {
-  console.log('跨域')
-  console.log(req.headers.origin)
   res.header("Access-Control-Allow-Origin", req.headers.origin)
   res.header("Access-Control-Allow-Headers", "Content-Type,Content-Length, Authorization, Accept, X-Requested-With , yourHeaderFeild");
   res.header("Access-Control-Allow-Methods","PUT,POST,GET,DELETE,OPTIONS");
@@ -57,7 +56,7 @@ app.post('*', function(req, res, next){
 });
 */
 app.use(api);
-db.openDB();
+//db.openDB();
 // 监听8088端口
 app.listen(8088);
 console.log('success listen…………', 8088);

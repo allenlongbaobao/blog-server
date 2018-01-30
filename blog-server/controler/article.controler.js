@@ -57,7 +57,6 @@ let getPublishArticleNum = function (req, res) {
 // 获取所有文章
 let getAllArticle = function (req, res) {
 	modelArticle.find().then(data => {
-    console.log('获取文章:', data)
     res.jsonp({
       data: data
     })

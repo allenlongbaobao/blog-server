@@ -12,4 +12,5 @@ exports.openDB = function () {
   db.on('open', () => {
     console.log('connect to database successfully!');
   });
+  return db;
 }
