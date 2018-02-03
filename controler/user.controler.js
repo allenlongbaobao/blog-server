@@ -64,7 +64,7 @@ let signIn = function (req, res) {
   }
 }
 
-let signOut =function (req, res) {
+let signOut = function (req, res) {
   req.session.user = null
   req.session.save()
   res.status(200).send()
@@ -73,5 +73,5 @@ let signOut =function (req, res) {
 module.exports = {
   signUp: signUp,
   signIn: signIn,
-  signOut: signOut
+  signOut: signOut,
 }

@@ -5,7 +5,7 @@ let user = {
 	username: String,
 	password: String,
 	email: String,
-	createAt: Date,
+	createAt: Date
 }
 
 let User = new Schema(user)

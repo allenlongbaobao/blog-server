@@ -36,18 +36,7 @@ app.all('*', function(req, res, next) {
   if(req.method=="OPTIONS") res.sendStatus(200);/*让options请求快速返回*/
   else  next();
 });
-/*
-app.post('*', function(req, res, next){
-	if(req.session.user){
-		next();
-	}else{
-		res.status(400).send({
-			message: '请先登陆'
-		})
-	}
 
-});
-*/
 app.use(api);
 //db.openDB();
 // 监听8088端口

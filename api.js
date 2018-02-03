@@ -10,9 +10,13 @@ const promise = require('promise')
 const articleControler = require('./controler/article.controler.js')
 const articleListControler = require('./controler/articleList.controler.js')
 const userControler = require('./controler/user.controler.js')
+const systemControler = require('./controler/system.controler.js')
+
+// 全局操作
+router.get('*', systemControler.addVisitedNum)
+// router.get('/api/getVistedNum', systemControler.getVistedNum)
 
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
-
 // 文章集操作
 router.get('/api/getArticleList', articleListControler.getArticleList)
 router.post('/api/addArticleList', articleListControler.addArticleList)

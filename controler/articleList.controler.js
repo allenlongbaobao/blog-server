@@ -40,6 +40,7 @@ let addArticleList = function (req, res) {
 //删除文章集
 let removeArticleList = function (req, res) {
 	let id = req.body
+	console.log(id)
 	modelArticleList.findByIdAndRemove(id).then((response)=>{
 	  console.log('删除文章集成功', response)
 	  res.jsonp({
