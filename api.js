@@ -14,7 +14,7 @@ const systemControler = require('./controler/system.controler.js')
 
 // 全局操作
 router.get('*', systemControler.addVisitedNum)
-// router.get('/api/getVistedNum', systemControler.getVistedNum)
+router.get('/api/getVisitedNum', systemControler.getVisitedNum)
 
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
 // 文章集操作

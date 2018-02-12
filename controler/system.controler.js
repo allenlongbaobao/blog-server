@@ -8,14 +8,12 @@ const modelSystem = Mongoose.model('system')
 
 Mongoose.Promise = promise
 
-/*
 let a = new modelSystem({name: 'allen', visitedNum: 0})
 a.save().then(res => {
   console.log (res)
 }, err=>{
   console.log (err)
 })
-*/
 
 let addVisitedNum = function (req, res, next) {
   console.log(req.session)
