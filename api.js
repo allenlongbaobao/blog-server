@@ -13,7 +13,7 @@ const userControler = require('./controler/user.controler.js')
 const systemControler = require('./controler/system.controler.js')
 
 // 全局操作
-router.get('*', systemControler.addVisitedNum)
+router.get('/api/addVisitedNum', systemControler.addVisitedNum)
 router.get('/api/getVisitedNum', systemControler.getVisitedNum)
 
 /************** 创建(create) 读取(get) 更新(update) 删除(delete) **************/
