@@ -44,7 +44,7 @@ let removeArticleList = function (req, res) {
 	modelArticleList.findByIdAndRemove(id).then((response)=>{
 	  console.log('删除文章集成功', response)
 	  res.jsonp({
-	    data: [response]
+	    data: response
 	  })
 	}, (err)=>{
 	})
