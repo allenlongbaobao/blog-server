@@ -11,6 +11,7 @@ const articleControler = require('./controler/article.controler.js')
 const articleListControler = require('./controler/articleList.controler.js')
 const userControler = require('./controler/user.controler.js')
 const systemControler = require('./controler/system.controler.js')
+const commentControler = require('./controler/comment.controler.js')
 
 // 全局操作
 router.get('/api/addVisitedNum', systemControler.addVisitedNum)
@@ -29,6 +30,13 @@ router.post('/api/getArticleById', articleControler.getArticleById)
 router.post('/api/getPublishArticleInOneListById', articleControler.getPublishArticleInOneListById)
 router.post('/api/addOrModifyArticle', articleControler.addOrModifyArticle)
 router.post('/api/removeArticle', articleControler.removeArticle)
+
+// 评论操作
+router.post('/api/getAllComments', commentControler.getAllComments)
+router.post('/api/addComment', commentControler.addComment)
+router.post('/api/addLikeToComment', commentControler.addLikeToComment)
+router.post('/api/removeLikeFromComment', commentControler.removeLikeFromComment)
+//	router.post('/api/addDisToComment', commentControler.addDisToComment)
 
 // 用户操作
 router.post('/api/signUp', userControler.signUp)
