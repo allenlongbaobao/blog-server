@@ -10,7 +10,7 @@ let article = {
   articleLink: String,
   articleContent: String,
   publish: Boolean,
-  publishAt: Date
+  publishAt: String
 }
 
 let Article = new Schema(article);

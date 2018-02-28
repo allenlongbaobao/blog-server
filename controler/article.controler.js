@@ -11,6 +11,10 @@ Mongoose.Promise = promise
 
 let addArticle = function (body, res) {
   body._id = Mongoose.Types.ObjectId()
+  let date = new Date()
+  body.publishAt = date.toLocaleString('zn-CN', {hour12: false, timeZone: 'UTC', timeZoneName: 'short'})
+  //body.publishAt = (new Date()).toLocaleString('zh-CN', { hour12: false })
+  //.replace(/\//g, '-').replace(/\b\d\b/g, '0$&');
   const article = new modelArticle(body);
   article.save().then((response)=>{
     console.log('新增文章成功', response)
@@ -57,7 +61,6 @@ let getPublishArticleNum = function (req, res) {
 // 获取所有文章
 let getAllArticle = function (req, res) {
 	modelArticle.find().sort({publishAt: -1}).then(data => {
-    console.log('所有文章', data)
     res.jsonp({
       data: data
     })
@@ -108,7 +111,7 @@ let removeArticle = function (req, res) {
   modelArticle.findByIdAndRemove(id).then((response)=>{
     console.log('删除文章成功', response)
     res.jsonp({
-      data: [response]
+      data: response
     })
     return response.articleList.Lid
   }, (err)=>{
