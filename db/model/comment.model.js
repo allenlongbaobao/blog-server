@@ -17,7 +17,7 @@ let comment = {
 		user: String,
 		likeNum: Number,
 		disNum: Number,
-		date: Date
+		date: String
 	}]
 }
 

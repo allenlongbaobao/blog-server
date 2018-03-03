@@ -38,6 +38,8 @@ let addComment = function (req, res) {
 		addReply(req.body, res)
 	} else {
 		req.body._id = Mongoose.Types.ObjectId()
+		let date = new Date()
+	  req.body.date = date.toLocaleString('zn-CN', {hour12: false, timeZone: 'UTC', timeZoneName: 'short'})
 		console.log('addComment', req.body)
 		const comment = new modelComment(req.body)
 		comment.save().then(result => {

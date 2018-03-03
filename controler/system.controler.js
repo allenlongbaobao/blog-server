@@ -21,17 +21,20 @@ modelSystem.find().then(response => {
   } 
 })
 
-let addVisitedNum = function (req, res, next) {
+let addVisitedNum = function (req, res) {
   console.log(req.session)
   if(!req.session.visited) {
     req.session.visited = true 
     req.session.save()
     modelSystem.update({name: 'allen'}, {$inc:{visitedNum: 1}}).then(response => {
       console.log('增加访问量', response)
+      res.status(200).send()
     }, err => {
       console.log(err)
+      res.status(500).send({
+        message: 'add visitednum fail'
+      })
     })
-    next()
   }
 }
 
