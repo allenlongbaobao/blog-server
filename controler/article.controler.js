@@ -12,7 +12,8 @@ Mongoose.Promise = promise
 let addArticle = function (body, res) {
   body._id = Mongoose.Types.ObjectId()
   let date = new Date()
-  body.publishAt = date.toLocaleString('zn-CN', {hour12: false, timeZone: 'UTC', timeZoneName: 'short'})
+  body.publishAt = date
+  //body.publishAt = date.toLocaleString('zn-CN', {hour12: false, timeZone: 'UTC', timeZoneName: 'short'})
   //body.publishAt = (new Date()).toLocaleString('zh-CN', { hour12: false })
   //.replace(/\//g, '-').replace(/\b\d\b/g, '0$&');
   const article = new modelArticle(body);

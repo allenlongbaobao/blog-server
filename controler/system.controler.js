@@ -35,6 +35,10 @@ let addVisitedNum = function (req, res) {
         message: 'add visitednum fail'
       })
     })
+  } else {
+    res.status(200).send({
+      message: '用户登录id已存在'
+    })
   }
 }
 
