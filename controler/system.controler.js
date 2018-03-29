@@ -44,9 +44,14 @@ let addVisitedNum = function (req, res) {
 
 let getVisitedNum = function (req, res) {
   modelSystem.find({name: 'allen'}).then(response => {
+    res.status(200).send({
+      data: response[0].visitedNum
+    })
+    /*
     res.jsonp({
       data: response[0].visitedNum
     })
+    */
   }).catch(err => {
     res.status(400).send()
   })

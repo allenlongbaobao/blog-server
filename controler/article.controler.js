@@ -53,9 +53,14 @@ let numSubInArticleList = function (id) {
 let getPublishArticleNum = function (req, res) {
   modelArticle.count({publish: true}).then(data => {
     console.log('查询数量:', data)
+    res.status(200).send({
+      data: data
+    })
+    /*
     res.jsonp({
       data: data
     })
+    */ 
   })
 }
 
