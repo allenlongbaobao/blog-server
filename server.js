@@ -18,7 +18,7 @@ const app = express();
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
 // 访问静态资源文件 这里是访问所有dist目录下的静态资源文件
-app.use(express.static(path.resolve(__dirname, '../dist')))
+app.use(express.static(path.resolve(__dirname, 'dist')))
 // session
 app.use(expressSession({name:'blog',store: new MongoStore({mongooseConnection: db.openDB()}), secret:'allen',resave: true, saveUninitialized: true,cookie: ('name', 'value', { path: '/', httpOnly: false,secure: false, maxAge:null})}));
 //app.set('trust proxy', 1) // trust first proxy
