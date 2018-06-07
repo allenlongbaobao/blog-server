@@ -9,11 +9,22 @@ const path = require('path');
 const bodyParser = require('body-parser')
 // 引入Express
 const express = require('express');
+
+const http = require('http');
+const https = require('https');
+const privateKey = fs.readFileSync('ssl/private.pem','utf8');
+const certificate = fs.readFileSync('ssl/file.crt', 'utf8');
+const credentials = {key: privateKey, cert: certificate};
+
 // 引入 express-session
 const expressSession = require('express-session')
 const MongoStore = require('connect-mongo')(expressSession)
 const uidSafe = require('uid-safe')
 const app = express();
+
+// 端口 
+const PORT = 8088;
+const SSLPORT = 8089;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -38,7 +49,15 @@ app.all('*', function(req, res, next) {
 });
 
 app.use(api);
+
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(PORT);
+httpsServer.listen(SSLPORT);
+
 //db.openDB();
 // 监听8088端口
-app.listen(8088);
-console.log('success listen…………', 8088);
+//app.listen(8088);
+console.log('success listen http server…………', PORT);
+console.log('success listen https server…………', PORT);
